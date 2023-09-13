@@ -1,0 +1,22 @@
+apiVersion: skaffold/v4beta6
+kind: Config
+metadata:
+  name: test-secrets
+build:
+  artifacts:
+    - image: localhost:32000/test-secrets
+      docker:
+        dockerfile: Dockerfile
+        noCache: true
+  local: {}
+deploy:
+  helm:
+    releases:
+      - name: test-secrets
+        chartPath: test-secrets
+        valuesFiles:
+          - test-secrets/values.yaml
+        version: 0.1.0
+        setValues:
+          image.pullPolicy: "Never"
+          image.tag: "latest"
