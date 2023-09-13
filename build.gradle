@@ -18,6 +18,9 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation platform("org.springframework.cloud:spring-cloud-dependencies:2022.0.4")
+    implementation "org.springframework.cloud:spring-cloud-starter-kubernetes-fabric8-config"
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.projectreactor:reactor-test'
 }

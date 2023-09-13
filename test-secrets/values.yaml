@@ -5,11 +5,11 @@
 replicaCount: 1
 
 image:
-  repository: "localhost:3200"
+  repository: "localhost:32000"
   pullPolicy: IfNotPresent
   name: "test-secrets"
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "2b906228b3ced8474266092a3185f9d436d53af3800977389adece91ba9ff03e"
+  tag: "latest"
 
 imagePullSecrets: []
 nameOverride: ""

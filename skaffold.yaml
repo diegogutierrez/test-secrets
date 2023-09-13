@@ -8,6 +8,9 @@ build:
       docker:
         dockerfile: Dockerfile
         noCache: true
+        buildArgs:
+          #          path to the
+          DEPENDENCY: "build/dependency"
   local: {}
 deploy:
   helm:
@@ -17,6 +20,3 @@ deploy:
         valuesFiles:
           - test-secrets/values.yaml
         version: 0.1.0
-        setValues:
-          image.pullPolicy: "Never"
-          image.tag: "latest"
