@@ -1,0 +1,6 @@
+# Startup configuration of Spring-cloud-kubernetes
+spring:
+  cloud:
+    kubernetes:
+      secrets:
+        paths: /etc/secrets
