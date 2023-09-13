@@ -33,14 +33,19 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            - name: secrets
+              mountPath: "/etc/secrets"
           env:
             - name: JAVA_TOOL_OPTIONS
-              value: "-Dspring.cloud.kubernetes.secrets.paths=/etc/secrets/db-secret"
-            - name: DB_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: db-secret
-                  key: username
+              value: "-Dspring.cloud.kubernetes.secrets.paths=/etc/secrets"
+#            - name: DB_USERNAME
+#              valueFrom:
+#                secretKeyRef:
+#                  name: db-secret
+#                  key: username
+            - name: "SPRING_CLOUD_BOOTSTRAP_ENABLED"
+              value: "true"
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -72,3 +77,12 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      volumes:
+        - name: secrets
+          projected:
+            sources:
+              - secret:
+                  name: db-secret
+                  items:
+                    - key: myusername
+                      path: myusername
